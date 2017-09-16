@@ -1,0 +1,1 @@
+<p><%= gettext "Hello from kakte :-)" %></p>

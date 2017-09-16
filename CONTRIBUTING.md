@@ -36,33 +36,39 @@ bare metal, but using git-flow simplifies the process.
 
 1. Install:
 
-    * [asdf](https://github.com/asdf-vm/asdf)
-    * Node.js & npm
-
+    * [asdf](https://github.com/asdf-vm/asdf) (for managing Elixir and Erlang
+      versions)
+    * Node.js & npm (for compiling the static assets)
+    * Ruby (for Sass)
 
 2. Install Erlang and Elixir plugins for asdf:
 
         $ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
         $ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 
-3. In the project repository, install the build toolchain:
+3. Install Sass:
+
+        $ gem update --system
+        $ gem install sass
+
+4. In the project repository, install the build toolchain:
 
         $ cd kakte
         $ asdf install
 
-4. Fetch the project dependencies and build the project:
+5. Fetch the project dependencies and build the project:
 
         $ mix do deps.get, compile
 
-5. Install assets dependencies:
+6. Install assets dependencies:
 
         $ cd assets && npm install
 
-6. Setup the database:
+7. Setup the database:
 
         $ mix ecto.setup
 
-7. Launch the application:
+8. Launch the application:
 
         $ iex -S mix phx.server
 
