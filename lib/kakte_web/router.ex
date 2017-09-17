@@ -24,12 +24,15 @@ defmodule KakteWeb.Router do
 
   use KakteWeb, :router
 
+  import KakteWeb.Locale, only: [set_locale: 2]
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :set_locale
   end
 
   scope "/", KakteWeb do

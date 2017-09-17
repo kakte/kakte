@@ -1,0 +1,86 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: eo\n"
+
+msgid "can't be blank"
+msgstr "ne povas esti malplena"
+
+msgid "has already been taken"
+msgstr "estas jam prenita"
+
+msgid "is invalid"
+msgstr "estas nevalida"
+
+msgid "must be accepted"
+msgstr "devas esti akceptita"
+
+msgid "has invalid format"
+msgstr "havas nevalidan formaton"
+
+msgid "has an invalid entry"
+msgstr "havas nevalidan eniron"
+
+msgid "is reserved"
+msgstr "estas rezervita"
+
+msgid "does not match confirmation"
+msgstr "ne egalas konfirmon"
+
+msgid "is still associated with this entry"
+msgstr "ankoraŭ estas asociita kun tio eniro"
+
+msgid "are still associated with this entry"
+msgstr "ankoraŭ estas asociita kun tio eniro"
+
+msgid "should be %{count} character(s)"
+msgid_plural "should be %{count} character(s)"
+msgstr[0] "devus longi %{count} karakteron"
+msgstr[1] "devus longi %{count} karakterojn"
+
+msgid "should have %{count} item(s)"
+msgid_plural "should have %{count} item(s)"
+msgstr[0] "devus havi %{count} eron"
+msgstr[1] "devus havi %{count} erojn"
+
+msgid "should be at least %{count} character(s)"
+msgid_plural "should be at least %{count} character(s)"
+msgstr[0] "devus longi almenaŭ %{count} karakteron"
+msgstr[1] "devus longi almenaŭ %{count} karakterojn"
+
+msgid "should have at least %{count} item(s)"
+msgid_plural "should have at least %{count} item(s)"
+msgstr[0] "devus havi almenaŭ %{count} eron"
+msgstr[1] "devus havi almenaŭ %{count} erojn"
+
+msgid "should be at most %{count} character(s)"
+msgid_plural "should be at most %{count} character(s)"
+msgstr[0] "devus longi maksimume %{count} karakteron"
+msgstr[1] "devus longi maksimume %{count} karakterojn"
+
+msgid "should have at most %{count} item(s)"
+msgid_plural "should have at most %{count} item(s)"
+msgstr[0] "devus havi maksimume %{count} eron"
+msgstr[1] "devus havi maksimume %{count} erojn"
+
+msgid "must be less than %{number}"
+msgstr "devas esti malpli ol %{number}"
+
+msgid "must be greater than %{number}"
+msgstr "devas esti pli ol %{number}"
+
+msgid "must be less than or equal to %{number}"
+msgstr "devas esti malpli ol aŭ egala al %{number}"
+
+msgid "must be greater than or equal to %{number}"
+msgstr "devas esti pli ol aŭ egala al %{number}"
+
+msgid "must be equal to %{number}"
+msgstr "devas esti egala al %{number}"
