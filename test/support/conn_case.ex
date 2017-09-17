@@ -36,5 +36,4 @@ defmodule KakteWeb.ConnCase do
     end
     {:ok, conn: ConnTest.build_conn()}
   end
-
 end

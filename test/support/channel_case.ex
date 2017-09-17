@@ -34,5 +34,4 @@ defmodule KakteWeb.ChannelCase do
     end
     :ok
   end
-
 end
