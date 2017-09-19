@@ -1,11 +1,33 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Kakte.Repo.insert!(%Kakte.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+######################################
+# Script for populating the database #
+######################################
+
+alias Kakte.Repo
+alias Kakte.Accounts.User
+
+#########
+# Users #
+#########
+
+# Basic user for testing the application
+Repo.insert! %User{
+  username: "user",
+  email: "user@kakte.io",
+  password_hash: Comeonin.Bcrypt.hashpwsalt("password"),
+}
+
+# More advanced profiles to test interactions
+
+Repo.insert! %User{
+  username: "john",
+  email: "john@smith.com",
+  password_hash: Comeonin.Bcrypt.hashpwsalt("john"),
+  fullname: "John Smith"
+}
+
+Repo.insert! %User{
+  username: "jean",
+  email: "jean@dupont.fr",
+  password_hash: Comeonin.Bcrypt.hashpwsalt("jean"),
+  fullname: "Jean Dupont"
+}
