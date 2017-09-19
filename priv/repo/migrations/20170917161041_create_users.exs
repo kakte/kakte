@@ -17,38 +17,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-defmodule Kakte.Application do
+defmodule Kakte.Repo.Migrations.CreateUsers do
   @moduledoc """
-  Kakte OTP Application.
+  The table for users.
   """
 
-  use Application
+  use Ecto.Migration
 
-  alias KakteWeb.Endpoint
+  def change do
+    create table(:users) do
+      add :username, :string, null: false
+      add :email, :string, null: false
+      add :password_hash, :string, null: false
+      add :fullname, :string
 
-  @impl true
-  def start(_type, _args) do
-    children = [
-      # Start the Ecto repository (for database)
-      # As Timex is not yet compatible with the last Ecto version, we must pass
-      # a child spec for this to work.
-      %{
-        id: Kakte.Repo,
-        start: {Kakte.Repo, :start_link, []},
-        type: :supervisor,
-      },
-      KakteWeb.Endpoint,  # Start the web endpoint
-    ]
+      timestamps()
+    end
 
-    opts = [strategy: :one_for_one, name: Kakte.Supervisor]
-    Supervisor.start_link(children, opts)
-  end
-
-  # Tell Phoenix to update the endpoint configuration whenever the application
-  # is updated.
-  @spec config_change(term, term, term) :: :ok
-  def config_change(changed, _new, removed) do
-    Endpoint.config_change(changed, removed)
-    :ok
+    create unique_index :users, [:username]
+    create unique_index :users, [:email]
   end
 end

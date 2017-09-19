@@ -50,6 +50,11 @@ defmodule Kakte.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_best, "~> 0.3.0"},
+      {:timex, "~> 3.1"},
+      {:timex_ecto, "~> 3.1"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:not_qwerty123, "~> 2.2"},
     ]
   end
 
