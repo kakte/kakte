@@ -5,42 +5,9 @@ defmodule Kakte.AccountsTest do
   alias Kakte.Accounts
 
   describe "[users]" do
+    use Kakte.Fixtures, [:user]
+
     alias Kakte.Accounts.User
-
-    @password "U[.2)hkvL#6<"
-    @valid_attrs %{
-      username: "user",
-      email: "user@kakte.io",
-      password: @password,
-      password_confirmation: @password,
-      fullname: "John Smith",
-    }
-
-    @new_password "s0jH,Fst;HQm"
-    @update_attrs %{
-      username: "new_user",
-      email: "new_user@kakte.io",
-      password: @new_password,
-      password_confirmation: @new_password,
-      fullname: "Fred Smith",
-    }
-
-    @invalid_attrs %{
-      username: nil,
-      email: nil,
-      password: nil,
-      password_confirmation: nil,
-      fullname: nil,
-    }
-
-    def user_fixture(attrs \\ %{}) do
-      {:ok, user} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Accounts.register
-
-      user
-    end
 
     test "list_users/0 returns all users" do
       user = user_fixture()
