@@ -41,6 +41,8 @@ defmodule Kakte.Mixfile do
       {:credo, "~> 0.8.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 0.5.1", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.7.3", only: :test, runtime: false},
+      {:mix_test_watch, "~> 0.5.0", only: :dev, runtime: false},
+      {:ex_unit_notifier, "~> 0.1.4", only: :test, runtime: false},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_pubsub, "~> 1.0"},

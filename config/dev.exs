@@ -24,6 +24,10 @@ config :kakte, KakteWeb.Endpoint,
     ]
   ]
 
+# Clear the console before each test run
+config :mix_test_watch,
+  clear: true
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
