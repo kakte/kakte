@@ -31,11 +31,14 @@ defmodule Kakte.Accounts.User do
 
   @typedoc "An event"
   @type t :: %__MODULE__{
+    id: pos_integer | nil,
     username: String.t,
     email: String.t,
-    password: String.t | nil,
-    password_hash: String.t | nil,
+    password: nil,
+    password_hash: String.t,
     fullname: String.t | nil,
+    inserted_at: Calendar.datetime | nil,
+    updated_at: Calendar.datetime | nil,
   }
 
   @fields [
