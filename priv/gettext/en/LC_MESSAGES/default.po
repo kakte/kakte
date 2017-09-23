@@ -13,3 +13,7 @@ msgstr ""
 #: lib/kakte_web/templates/page/index.html.eex:1
 msgid "Hello from kakte :-)"
 msgstr ""
+
+#: lib/kakte_web/controllers/page_controller.ex:32
+msgid "Home"
+msgstr ""

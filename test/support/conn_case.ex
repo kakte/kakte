@@ -15,9 +15,6 @@ defmodule KakteWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
-  alias Ecto.Adapters.SQL.Sandbox
-  alias Phoenix.ConnTest
-
   using do
     quote do
       # Import conveniences for testing with connections
@@ -26,14 +23,34 @@ defmodule KakteWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint KakteWeb.Endpoint
+
+      ## Setup functions
+
+      defp guest(%{conn: conn}) do
+        %{conn: guest_conn(conn)}
+      end
+
+      ## Connection manipulation functions
+
+      defp browser_conn(conn) do
+        conn
+        |> bypass_through(KakteWeb.Router, :browser)
+        |> get("/")
+      end
+
+      defp guest_conn(conn) do
+        conn
+        |> browser_conn
+        |> send_resp(:ok, "")
+      end
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Kakte.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Kakte.Repo)
     unless tags[:async] do
-      Sandbox.mode(Kakte.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Kakte.Repo, {:shared, self()})
     end
-    {:ok, conn: ConnTest.build_conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
