@@ -27,6 +27,38 @@ defmodule KakteWeb.LayoutViewTest do
     end
   end
 
+  describe "when the connection is not authenticated" do
+    setup [:guest]
+
+    test "a link to log in is rendered", %{conn: conn} do
+      assert render_layout("app.html", conn: conn) =~ "Log in"
+    end
+
+    test "the user’s username is not rendered", %{conn: conn} do
+      assert not (render_layout("app.html", conn: conn) =~ @user.username)
+    end
+
+    test "the user menu is not rendered", %{conn: conn} do
+      assert not (render_layout("app.html", conn: conn) =~ "user-menu")
+    end
+  end
+
+  describe "when the connection is authenticated as a user" do
+    setup [:user]
+
+    test "no link to log in is rendered", %{conn: conn} do
+      assert not (render_layout("app.html", conn: conn) =~ "Log in")
+    end
+
+    test "the user’s username is rendered", %{conn: conn} do
+      assert render_layout("app.html", conn: conn) =~ @user.username
+    end
+
+    test "the user menu is rendered", %{conn: conn} do
+      assert render_layout("app.html", conn: conn) =~ "user-menu"
+    end
+  end
+
   defp render_layout(layout, assigns) do
     assigns = [layout: {@view, layout}] ++ assigns
     render_to_string(@test_view, @test_template, assigns)

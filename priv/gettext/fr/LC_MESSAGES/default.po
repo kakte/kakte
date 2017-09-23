@@ -14,6 +14,14 @@ msgstr ""
 msgid "Hello from kakte :-)"
 msgstr "Bonjour de kakte :-)"
 
+#: lib/kakte_web/templates/layout/app.html.eex:29
+msgid "Log in"
+msgstr "Se connecter"
+
 #: lib/kakte_web/controllers/page_controller.ex:32
 msgid "Home"
 msgstr "Accueil"
+
+#: lib/kakte_web/templates/layout/app.html.eex:25
+msgid "Log out"
+msgstr "Se déconnecter"

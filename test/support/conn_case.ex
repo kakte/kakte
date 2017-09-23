@@ -19,6 +19,8 @@ defmodule KakteWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      use Kakte.Fixtures, [:user]
+
       import KakteWeb.Router.Helpers
 
       # The default endpoint for testing
@@ -28,6 +30,10 @@ defmodule KakteWeb.ConnCase do
 
       defp guest(%{conn: conn}) do
         %{conn: guest_conn(conn)}
+      end
+
+      defp user(%{conn: conn}) do
+        %{conn: user_conn(conn)}
       end
 
       ## Connection manipulation functions
@@ -41,6 +47,14 @@ defmodule KakteWeb.ConnCase do
       defp guest_conn(conn) do
         conn
         |> browser_conn
+        |> send_resp(:ok, "")
+      end
+
+      defp user_conn(conn) do
+        conn
+        |> browser_conn
+        |> assign(:authenticated, true)
+        |> assign(:current_user, @user)
         |> send_resp(:ok, "")
       end
     end

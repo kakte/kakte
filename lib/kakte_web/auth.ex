@@ -17,19 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-defmodule KakteWeb.LayoutView do
+defmodule KakteWeb.Auth do
   @moduledoc """
-  View for layouts.
+  Module for connection authentication.
   """
-
-  use KakteWeb, :view
-
-  import KakteWeb.Auth, only: [authenticated?: 1]
 
   @doc """
-  Sets the page title.
+  Returns if the `conn` is authenticated.
   """
-  @spec title(String.t | nil) :: String.t
-  def title(nil), do: "Kakte"
-  def title(title), do: "Kakte — #{title}"
+  @spec authenticated?(Plug.Conn.t) :: boolean
+  def authenticated?(conn), do: !!conn.assigns[:authenticated]
 end

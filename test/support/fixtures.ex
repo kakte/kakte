@@ -9,12 +9,13 @@ defmodule Kakte.Fixtures do
 
   def user do
     alias Kakte.Accounts
+    alias Kakte.Accounts.User
 
     quote do
       @password "U[.2)hkvL#6<"
       @valid_attrs %{
-        username: "user",
-        email: "user@kakte.io",
+        username: "john",
+        email: "john@kakte.io",
         password: @password,
         password_confirmation: @password,
         fullname: "John Smith",
@@ -22,8 +23,8 @@ defmodule Kakte.Fixtures do
 
       @new_password "s0jH,Fst;HQm"
       @update_attrs %{
-        username: "new_user",
-        email: "new_user@kakte.io",
+        username: "fred",
+        email: "fred@kakte.io",
         password: @new_password,
         password_confirmation: @new_password,
         fullname: "Fred Smith",
@@ -35,6 +36,16 @@ defmodule Kakte.Fixtures do
         password: nil,
         password_confirmation: nil,
         fullname: nil,
+      }
+
+      @user %User{
+        id: 1,
+        username: @valid_attrs.username,
+        email: @valid_attrs.email,
+        password_hash: Comeonin.Bcrypt.hashpwsalt(@password),
+        fullname: @valid_attrs.fullname,
+        inserted_at: DateTime.utc_now,
+        updated_at: DateTime.utc_now,
       }
 
       def user_fixture(attrs \\ %{}) do

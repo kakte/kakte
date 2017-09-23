@@ -11,8 +11,24 @@
 
   <body>
     <header class="site-header">
+      <h1><%= link "kakte", to: static_path(@conn, "/") %></h1>
+
       <nav role="navigation">
-        <!-- TODO -->
+        <ul>
+          <%= if authenticated?(@conn) do %>
+            <li>
+              <span class="username">
+                <%= @conn.assigns.current_user.username %>
+              </span>
+
+              <ul class="user-menu">
+                <li><%= link gettext("Log out"), to: "#" %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="login"><%= link gettext("Log in"), to: "#" %></li>
+          <% end %>
+        </ul>
       </nav>
     </header>
 
