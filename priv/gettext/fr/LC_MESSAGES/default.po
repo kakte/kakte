@@ -14,7 +14,10 @@ msgstr ""
 msgid "Hello from kakte :-)"
 msgstr "Bonjour de kakte :-)"
 
-#: lib/kakte_web/templates/layout/app.html.eex:29
+#: lib/kakte_web/controllers/session_controller.ex:42
+#: lib/kakte_web/templates/layout/app.html.eex:30
+#: lib/kakte_web/templates/session/login.html.eex:2
+#: lib/kakte_web/templates/session/login.html.eex:19
 msgid "Log in"
 msgstr "Se connecter"
 
@@ -25,3 +28,11 @@ msgstr "Accueil"
 #: lib/kakte_web/templates/layout/app.html.eex:25
 msgid "Log out"
 msgstr "Se déconnecter"
+
+#: lib/kakte_web/templates/session/login.html.eex:14
+msgid "Password"
+msgstr "Mot de passe"
+
+#: lib/kakte_web/templates/session/login.html.eex:9
+msgid "Username"
+msgstr "Nom d’utilisateur"

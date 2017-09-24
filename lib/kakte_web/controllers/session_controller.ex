@@ -17,31 +17,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-defmodule KakteWeb.Auth do
+defmodule KakteWeb.SessionController do
   @moduledoc """
-  Module for connection authentication.
+  Controller for session management.
   """
 
-  import Plug.Conn, only: [assign: 3, get_session: 2]
+  use KakteWeb, :controller
 
-  @doc """
-  Returns if the `conn` is authenticated.
-  """
-  @spec authenticated?(Plug.Conn.t) :: boolean
-  def authenticated?(conn), do: !!conn.assigns[:authenticated]
+  alias KakteWeb.Auth
 
   @doc """
-  Authenticates the `conn` from the session
+  Renders the login page.
+
+  Redirects if there is already a session.
   """
-  @spec fetch_auth(Plug.Conn.t, keyword) :: Plug.Conn.t
-  def fetch_auth(conn, _opts \\ []) do
-    with true <- get_session(conn, :authenticated),
-         user when not is_nil(user) <- get_session(conn, :current_user) do
-      conn
-      |> assign(:authenticated, true)
-      |> assign(:current_user, user)
+  @spec login(Plug.Conn.t, map) :: Plug.Conn.t
+  def login(conn, params) do
+    page = params["redirect_to"] || "/"
+
+    if Auth.authenticated?(conn) do
+      redirect conn, to: page
     else
-      _ -> assign(conn, :authenticated, false)
+      conn
+      |> assign(:title, gettext "Log in")
+      |> assign(:redirect_to, page)
+      |> render("login.html")
     end
   end
 end

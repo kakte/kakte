@@ -53,6 +53,8 @@ defmodule KakteWeb.ConnCase do
       defp user_conn(conn) do
         conn
         |> browser_conn
+        |> put_session(:authenticated, true)
+        |> put_session(:current_user, @user)
         |> assign(:authenticated, true)
         |> assign(:current_user, @user)
         |> send_resp(:ok, "")

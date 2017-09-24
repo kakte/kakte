@@ -24,11 +24,13 @@ defmodule KakteWeb.Router do
 
   use KakteWeb, :router
 
+  import KakteWeb.Auth, only: [fetch_auth: 2]
   import KakteWeb.Locale, only: [set_locale: 2]
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug :fetch_auth
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
@@ -38,6 +40,12 @@ defmodule KakteWeb.Router do
   scope "/", KakteWeb do
     pipe_through :browser
 
+    # General pages
     get "/", PageController, :index
+
+    # Session management
+    get "/login", SessionController, :login
+    post "/login", SessionController, :create
+    get "/logout", SessionController, :delete
   end
 end

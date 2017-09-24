@@ -17,31 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-defmodule KakteWeb.Auth do
+defmodule KakteWeb.SessionView do
   @moduledoc """
-  Module for connection authentication.
+  View for session management pages.
   """
 
-  import Plug.Conn, only: [assign: 3, get_session: 2]
-
-  @doc """
-  Returns if the `conn` is authenticated.
-  """
-  @spec authenticated?(Plug.Conn.t) :: boolean
-  def authenticated?(conn), do: !!conn.assigns[:authenticated]
-
-  @doc """
-  Authenticates the `conn` from the session
-  """
-  @spec fetch_auth(Plug.Conn.t, keyword) :: Plug.Conn.t
-  def fetch_auth(conn, _opts \\ []) do
-    with true <- get_session(conn, :authenticated),
-         user when not is_nil(user) <- get_session(conn, :current_user) do
-      conn
-      |> assign(:authenticated, true)
-      |> assign(:current_user, user)
-    else
-      _ -> assign(conn, :authenticated, false)
-    end
-  end
+  use KakteWeb, :view
 end

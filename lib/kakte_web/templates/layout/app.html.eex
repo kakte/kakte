@@ -22,11 +22,13 @@
               </span>
 
               <ul class="user-menu">
-                <li><%= link gettext("Log out"), to: "#" %></li>
+                <li><%= link gettext("Log out"),
+                  to: session_path(@conn, :delete) %></li>
               </ul>
             </li>
           <% else %>
-            <li class="login"><%= link gettext("Log in"), to: "#" %></li>
+            <li class="login"><%= link gettext("Log in"),
+              to: session_path(@conn, :login) %></li>
           <% end %>
         </ul>
       </nav>
