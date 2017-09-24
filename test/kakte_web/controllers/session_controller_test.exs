@@ -67,5 +67,13 @@ defmodule KakteWeb.SessionControllerTest do
       conn = get conn, session_path(conn, :login, redirect_to: "/test")
       assert redirected_to(conn) == "/test"
     end
+
+    test "GET /logout logs the user out and redirects to the home page",
+         %{conn: conn} do
+      conn = get conn, session_path(conn, :delete)
+
+      assert !get_session(conn, :authenticated)
+      assert redirected_to(conn) == "/"
+    end
   end
 end

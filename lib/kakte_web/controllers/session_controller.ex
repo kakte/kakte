@@ -64,6 +64,16 @@ defmodule KakteWeb.SessionController do
     end
   end
 
+  @doc """
+  Deletes the session.
+  """
+  @spec delete(Plug.Conn.t, map) :: Plug.Conn.t
+  def delete(conn, _params) do
+    conn
+    |> clear_session
+    |> redirect(to: "/")
+  end
+
   @spec render_login(Plug.Conn.t, String.t) :: Plug.Conn.t
   defp render_login(conn, redirect_to) do
     conn
