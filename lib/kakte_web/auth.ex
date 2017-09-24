@@ -24,6 +24,22 @@ defmodule KakteWeb.Auth do
 
   import Plug.Conn, only: [assign: 3, get_session: 2]
 
+  alias Kakte.Accounts.User
+  alias Kakte.Repo
+
+  @doc """
+  Authenticates a user.
+  """
+  @spec authenticate(String.t, String.t) :: {:ok, User.t} | :error
+  def authenticate(username, password) do
+    with user when not is_nil(user) <- Repo.get_by(User, username: username),
+         {:ok, user} <- Comeonin.Bcrypt.check_pass(user, password) do
+      {:ok, user}
+    else
+      _ -> :error
+    end
+  end
+
   @doc """
   Returns if the `conn` is authenticated.
   """

@@ -4,6 +4,22 @@ defmodule KakteWeb.AuthTest do
   import Plug.Test, only: [init_test_session: 2]
   import KakteWeb.Auth
 
+  describe "authenticate/2" do
+    test "returns {:ok, user} if the credentials are valid" do
+      user = user_fixture()
+      assert {:ok, ^user} = authenticate(user.username, @password)
+    end
+
+    test "returns :error if the password is invalid" do
+      user = user_fixture()
+      assert :error = authenticate(user.username, "test")
+    end
+
+    test "returns :error if the username is invalid" do
+      assert :error = authenticate("test", "test")
+    end
+  end
+
   describe "authenticated?/1" do
     test "returns true if the connection is authenticated", %{conn: conn} do
       assert conn |> user_conn |> authenticated?

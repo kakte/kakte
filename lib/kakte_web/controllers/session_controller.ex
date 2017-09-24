@@ -35,13 +35,40 @@ defmodule KakteWeb.SessionController do
   def login(conn, params) do
     page = params["redirect_to"] || "/"
 
-    if Auth.authenticated?(conn) do
-      redirect conn, to: page
-    else
-      conn
-      |> assign(:title, gettext "Log in")
-      |> assign(:redirect_to, page)
-      |> render("login.html")
+    if Auth.authenticated?(conn),
+      do: redirect(conn, to: page),
+    else: render_login(conn, page)
+  end
+
+  @doc """
+  Validates the credentials and creates a session.
+
+  If the credentials are not valid, the login page is rendered again.
+  """
+  @spec create(Plug.Conn.t, map) :: Plug.Conn.t
+  def create(conn, %{"username" => username,
+                     "password" => password} = params) do
+    page = params["redirect_to"] || "/"
+
+    case Auth.authenticate(username, password) do
+      {:ok, user} ->
+        conn
+        |> put_session(:authenticated, true)
+        |> put_session(:current_user, user)
+        |> redirect(to: page)
+
+      :error ->
+        conn
+        |> put_flash(:error, gettext "Incorrect username or password.")
+        |> render_login(page)
     end
+  end
+
+  @spec render_login(Plug.Conn.t, String.t) :: Plug.Conn.t
+  defp render_login(conn, redirect_to) do
+    conn
+    |> assign(:title, gettext "Log in")
+    |> assign(:redirect_to, redirect_to)
+    |> render("login.html")
   end
 end
