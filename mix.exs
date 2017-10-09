@@ -38,11 +38,14 @@ defmodule Kakte.Mixfile do
 
   defp deps do
     [
-      {:credo, "~> 0.8.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5.1", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.7.3", only: :test, runtime: false},
-      {:mix_test_watch, "~> 0.5.0", only: :dev, runtime: false},
-      {:ex_unit_notifier, "~> 0.1.4", only: :test, runtime: false},
+      # Development and test dependencies
+      {:credo, "~> 0.8.8", only: [:dev, :test], runtime: false},
+      {:dialyxir, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:excoveralls, ">= 0.0.0", only: :test, runtime: false},
+      {:mix_test_watch, ">= 0.0.0", only: :dev, runtime: false},
+      {:ex_unit_notifier, ">= 0.0.0", only: :test, runtime: false},
+
+      # Project dependencies
       {:phoenix, "~> 1.3.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_pubsub, "~> 1.0"},
