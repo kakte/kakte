@@ -50,12 +50,10 @@ defmodule KakteWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-  # The session will be stored in the cookie and signed, this means its contents
-  # can be read but not tampered with.
+  # The session will be stored in a Mnesia table.
   plug Plug.Session,
-    store: :cookie,
-    key: "_kakte_key",
-    signing_salt: "7Q3f4Owy"
+    store: PlugSessionMnesia.Store,
+    key: "_kakte_key"
 
   plug KakteWeb.Router
 

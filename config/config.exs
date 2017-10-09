@@ -17,6 +17,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configures the session store
+config :plug_session_mnesia,
+  table: :session,
+  max_age: 86400
+
 # Import environment specific config. This must remain at the bottom of this
 # file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
