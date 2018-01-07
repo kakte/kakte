@@ -39,7 +39,7 @@ defmodule Kakte.Mixfile do
   defp deps do
     [
       # Development and test dependencies
-      {:credo, "~> 0.8.8", only: [:dev, :test], runtime: false},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:dialyxir, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:excoveralls, ">= 0.0.0", only: :test, runtime: false},
       {:mix_test_watch, ">= 0.0.0", only: :dev, runtime: false},
@@ -54,7 +54,7 @@ defmodule Kakte.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:plug_session_mnesia, "~> 0.1.0"},
+      {:plug_session_mnesia, "~> 0.1.1"},
       {:plug_best, "~> 0.3.0"},
       {:timex, "~> 3.1"},
       {:timex_ecto, "~> 3.1"},

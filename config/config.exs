@@ -20,7 +20,8 @@ config :logger, :console,
 # Configures the session store
 config :plug_session_mnesia,
   table: :session,
-  max_age: 86400
+  timestamp: :fixed,
+  max_age: 600
 
 # Import environment specific config. This must remain at the bottom of this
 # file so it overrides the configuration defined above.
