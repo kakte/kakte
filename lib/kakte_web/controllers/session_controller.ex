@@ -24,6 +24,8 @@ defmodule KakteWeb.SessionController do
 
   use KakteWeb, :controller
 
+  import Expected.Plugs, only: [register_login: 1, logout: 1]
+
   alias KakteWeb.Auth
 
   @doc """
@@ -55,6 +57,7 @@ defmodule KakteWeb.SessionController do
         conn
         |> put_session(:authenticated, true)
         |> put_session(:current_user, user)
+        |> register_login()
         |> redirect(to: page)
 
       :error ->
@@ -70,7 +73,7 @@ defmodule KakteWeb.SessionController do
   @spec delete(Plug.Conn.t, map) :: Plug.Conn.t
   def delete(conn, _params) do
     conn
-    |> clear_session
+    |> logout()
     |> redirect(to: "/")
   end
 

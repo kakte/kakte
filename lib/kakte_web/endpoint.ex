@@ -50,10 +50,8 @@ defmodule KakteWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-  # The session will be stored in a Mnesia table.
-  plug Plug.Session,
-    store: PlugSessionMnesia.Store,
-    key: "_kakte_key"
+  # Use Expected for session an login management
+  plug Expected
 
   plug KakteWeb.Router
 

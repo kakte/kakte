@@ -24,13 +24,13 @@ defmodule KakteWeb.Router do
 
   use KakteWeb, :router
 
-  import KakteWeb.Auth, only: [fetch_auth: 2]
+  import Expected.Plugs, only: [authenticate: 2]
   import KakteWeb.Locale, only: [set_locale: 2]
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_auth
+    plug :authenticate
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers

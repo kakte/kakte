@@ -1,7 +1,8 @@
 defmodule KakteWeb.SessionControllerTest do
   use KakteWeb.ConnCase
 
-  alias KakteWeb.Auth
+  alias Expected.Login
+  alias Expected.MemoryStore, as: LoginStore
 
   describe "when the connection is not authenticated" do
     setup [:guest]
@@ -23,11 +24,16 @@ defmodule KakteWeb.SessionControllerTest do
          %{conn: conn} do
       user = user_fixture()
 
+      # Ensure there is no previous login in the store
+      Expected.delete_all_user_logins(user.username)
+
       conn = post conn, session_path(conn, :create),
                   username: user.username,
                   password: @password
 
       assert get_session(conn, :authenticated)
+      assert conn.resp_cookies["_kakte_auth"]
+      assert [%Login{}] = Expected.list_user_logins(user.username)
     end
 
     test "POST /login redirects to the correct page if the credentials are
@@ -70,10 +76,16 @@ defmodule KakteWeb.SessionControllerTest do
 
     test "GET /logout logs the user out and redirects to the home page",
          %{conn: conn} do
+      auth_cookie = conn.cookies["_kakte_auth"]
+      [encoded_user, serial, _] = String.split(auth_cookie, ".")
+      user = Base.decode64!(encoded_user)
+
+      assert {:ok, _} = LoginStore.get(user, serial, :login_store)
+
       conn = get conn, session_path(conn, :delete)
 
-      assert !get_session(conn, :authenticated)
       assert redirected_to(conn) == "/"
+      assert {:error, :no_login} = LoginStore.get(user, serial, :login_store)
     end
   end
 end

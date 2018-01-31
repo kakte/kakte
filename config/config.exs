@@ -17,6 +17,14 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configures Expected
+config :expected,
+  store: :mnesia,
+  table: :logins,
+  auth_cookie: "_kakte_auth",
+  session_store: PlugSessionMnesia.Store,
+  session_cookie: "_kakte_key"
+
 # Configures the session store
 config :plug_session_mnesia,
   table: :session,

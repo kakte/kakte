@@ -22,6 +22,7 @@ defmodule KakteWeb.ConnCase do
       use Kakte.Fixtures, [:user]
 
       import KakteWeb.Router.Helpers
+      import Expected.Plugs, only: [register_login: 1]
 
       # The default endpoint for testing
       @endpoint KakteWeb.Endpoint
@@ -45,9 +46,7 @@ defmodule KakteWeb.ConnCase do
       end
 
       defp guest_conn(conn) do
-        conn
-        |> browser_conn
-        |> send_resp(:ok, "")
+        browser_conn(conn)
       end
 
       defp user_conn(conn) do
@@ -55,9 +54,9 @@ defmodule KakteWeb.ConnCase do
         |> browser_conn
         |> put_session(:authenticated, true)
         |> put_session(:current_user, @user)
-        |> assign(:authenticated, true)
-        |> assign(:current_user, @user)
+        |> register_login()
         |> send_resp(:ok, "")
+        |> browser_conn
       end
     end
   end
