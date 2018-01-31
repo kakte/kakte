@@ -35,11 +35,11 @@ defmodule KakteWeb.LayoutViewTest do
     end
 
     test "the user’s username is not rendered", %{conn: conn} do
-      assert not (render_layout("app.html", conn: conn) =~ @user.username)
+      refute render_layout("app.html", conn: conn) =~ @user.username
     end
 
     test "the user menu is not rendered", %{conn: conn} do
-      assert not (render_layout("app.html", conn: conn) =~ "user-menu")
+      refute render_layout("app.html", conn: conn) =~ "user-menu"
     end
   end
 
@@ -47,7 +47,7 @@ defmodule KakteWeb.LayoutViewTest do
     setup [:user]
 
     test "no link to log in is rendered", %{conn: conn} do
-      assert not (render_layout("app.html", conn: conn) =~ "Log in")
+      refute render_layout("app.html", conn: conn) =~ "Log in"
     end
 
     test "the user’s username is rendered", %{conn: conn} do

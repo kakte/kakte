@@ -54,7 +54,7 @@ defmodule KakteWeb.SessionControllerTest do
                   username: "test",
                   password: "test"
 
-      assert not Auth.authenticated?(conn)
+      refute get_session(conn, :authenticated)
       assert html_response(conn, 200) =~ "Incorrect username or password."
     end
   end

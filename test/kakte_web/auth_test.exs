@@ -27,7 +27,7 @@ defmodule KakteWeb.AuthTest do
 
     test "returns false if the connection is not authenticated",
          %{conn: conn} do
-      assert not (conn |> guest_conn |> authenticated?)
+      refute conn |> guest_conn |> authenticated?
     end
   end
 
