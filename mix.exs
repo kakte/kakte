@@ -28,7 +28,7 @@ defmodule Kakte.Mixfile do
   def application do
     [
       mod: {Kakte.Application, []},
-      extra_applications: [:logger, :runtime_tools],
+      extra_applications: [:logger, :mnesia, :runtime_tools],
     ]
   end
 
