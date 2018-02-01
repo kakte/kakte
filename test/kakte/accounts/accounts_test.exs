@@ -11,7 +11,7 @@ defmodule Kakte.AccountsTest do
 
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Accounts.list_users == [user]
+      assert Accounts.list_users() == [user]
     end
 
     test "get_user!/1 returns the user with given id" do
@@ -39,87 +39,91 @@ defmodule Kakte.AccountsTest do
 
     test "the username is mandatory for registration" do
       assert {:error, %Changeset{} = changeset} =
-        @valid_attrs
-        |> Map.delete(:username)
-        |> Accounts.register
+               @valid_attrs
+               |> Map.delete(:username)
+               |> Accounts.register()
 
       assert %{username: ["can't be blank"]} = errors_on(changeset)
     end
 
     test "an email is mandatory for registration" do
       assert {:error, %Changeset{} = changeset} =
-        @valid_attrs
-        |> Map.delete(:email)
-        |> Accounts.register
+               @valid_attrs
+               |> Map.delete(:email)
+               |> Accounts.register()
 
       assert %{email: ["can't be blank"]} = errors_on(changeset)
     end
 
     test "a password is mandatory for registration" do
       assert {:error, %Changeset{} = changeset} =
-        @valid_attrs
-        |> Map.delete(:password)
-        |> Accounts.register
+               @valid_attrs
+               |> Map.delete(:password)
+               |> Accounts.register()
 
       assert %{password: ["can't be blank"]} = errors_on(changeset)
     end
 
     test "the password must match confirmation for registration" do
       assert {:error, %Changeset{} = changeset} =
-        @valid_attrs
-        |> Map.put(:password_confirmation, "not password")
-        |> Accounts.register
+               @valid_attrs
+               |> Map.put(:password_confirmation, "not password")
+               |> Accounts.register()
 
       assert %{password_confirmation: ["does not match confirmation"]} =
-             errors_on(changeset)
+               errors_on(changeset)
     end
 
     test "the password must be at least 8 characters" do
       assert {:error, %Changeset{} = changeset} =
-        @valid_attrs
-        |> Map.put(:password, "toto")
-        |> Accounts.register
+               @valid_attrs
+               |> Map.put(:password, "toto")
+               |> Accounts.register()
 
-      assert %{password: [
-          "The password should be at least 8 characters long."
-        ]} = errors_on(changeset)
+      assert %{
+               password: ["The password should be at least 8 characters long."]
+             } = errors_on(changeset)
     end
 
     test "the password must not be too easy" do
       assert {:error, %Changeset{} = changeset} =
-        @valid_attrs
-        |> Map.put(:password, "password")
-        |> Accounts.register
+               @valid_attrs
+               |> Map.put(:password, "password")
+               |> Accounts.register()
 
-      assert %{password: [
-          "The password you have chosen is weak because it is easy to guess." <>
-          " Please choose another one."
-        ]} = errors_on(changeset)
+      assert %{
+               password: [
+                 "The password you have chosen is weak because it is easy to" <>
+                   "guess. Please choose another one."
+               ]
+             } = errors_on(changeset)
     end
 
     test "the full name is optional for registration" do
       assert {:ok, %User{}} =
-        @valid_attrs
-        |> Map.delete(:fullname)
-        |> Accounts.register
+               @valid_attrs
+               |> Map.delete(:fullname)
+               |> Accounts.register()
     end
 
     test "a username can be registered only once" do
       user_fixture()
+
       assert {:error, %Changeset{} = changeset} =
-        @update_attrs
-        |> Map.put(:username, @valid_attrs.username)
-        |> Accounts.register
+               @update_attrs
+               |> Map.put(:username, @valid_attrs.username)
+               |> Accounts.register()
 
       assert %{username: ["has already been taken"]} = errors_on(changeset)
     end
 
     test "an email can be used only for one user" do
       user_fixture()
+
       assert {:error, %Changeset{} = changeset} =
-        @update_attrs
-        |> Map.put(:email, @valid_attrs.email)
-        |> Accounts.register
+               @update_attrs
+               |> Map.put(:email, @valid_attrs.email)
+               |> Accounts.register()
 
       assert %{email: ["has already been taken"]} = errors_on(changeset)
     end
@@ -136,8 +140,9 @@ defmodule Kakte.AccountsTest do
 
     test "update_user/2 with invalid data returns an error changeset" do
       user = user_fixture()
+
       assert {:error, %Ecto.Changeset{}} =
-        Accounts.update_user(user, @invalid_attrs)
+               Accounts.update_user(user, @invalid_attrs)
 
       assert Accounts.get_user!(user.id) == user
     end
@@ -150,16 +155,18 @@ defmodule Kakte.AccountsTest do
 
     test "the username cannot be set to nil when updating a user" do
       user = user_fixture()
+
       assert {:error, %Changeset{} = changeset} =
-        Accounts.update_user(user, %{username: nil})
+               Accounts.update_user(user, %{username: nil})
 
       assert %{username: ["can't be blank"]} = errors_on(changeset)
     end
 
     test "the email cannot be set to nil when updating a user" do
       user = user_fixture()
+
       assert {:error, %Changeset{} = changeset} =
-        Accounts.update_user(user, %{email: nil})
+               Accounts.update_user(user, %{email: nil})
 
       assert %{email: ["can't be blank"]} = errors_on(changeset)
     end

@@ -25,15 +25,17 @@ defmodule KakteWeb.AuthTest do
       assert conn |> user_conn |> authenticated?
     end
 
-    test "returns false if the connection is not authenticated",
-         %{conn: conn} do
+    test "returns false if the connection is not authenticated", %{
+      conn: conn
+    } do
       refute conn |> guest_conn |> authenticated?
     end
   end
 
   describe "fetch_auth/2" do
-    test "authenticates the connection if the session is authenticated",
-         %{conn: conn} do
+    test "authenticates the connection if the session is authenticated", %{
+      conn: conn
+    } do
       conn =
         conn
         |> init_test_session(%{})
@@ -65,7 +67,7 @@ defmodule KakteWeb.AuthTest do
         |> put_session(:authenticated, true)
         |> fetch_auth
 
-      assert conn.assigns[:authenticated] ==  false
+      assert conn.assigns[:authenticated] == false
     end
   end
 end

@@ -30,7 +30,7 @@ defmodule KakteWeb.Auth do
   @doc """
   Authenticates a user.
   """
-  @spec authenticate(String.t, String.t) :: {:ok, User.t} | :error
+  @spec authenticate(String.t(), String.t()) :: {:ok, User.t()} | :error
   def authenticate(username, password) do
     with user when not is_nil(user) <- Repo.get_by(User, username: username),
          {:ok, user} <- Comeonin.Bcrypt.check_pass(user, password) do
@@ -43,13 +43,13 @@ defmodule KakteWeb.Auth do
   @doc """
   Returns if the `conn` is authenticated.
   """
-  @spec authenticated?(Plug.Conn.t) :: boolean
+  @spec authenticated?(Plug.Conn.t()) :: boolean()
   def authenticated?(conn), do: !!conn.assigns[:authenticated]
 
   @doc """
   Authenticates the `conn` from the session
   """
-  @spec fetch_auth(Plug.Conn.t, keyword) :: Plug.Conn.t
+  @spec fetch_auth(Plug.Conn.t(), keyword()) :: Plug.Conn.t()
   def fetch_auth(conn, _opts \\ []) do
     with true <- get_session(conn, :authenticated),
          user when not is_nil(user) <- get_session(conn, :current_user) do

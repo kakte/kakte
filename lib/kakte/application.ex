@@ -26,7 +26,7 @@ defmodule Kakte.Application do
 
   alias KakteWeb.Endpoint
 
-  @impl true
+  @impl Application
   def start(_type, _args) do
     children = [
       # Start the Ecto repository (for database)
@@ -35,9 +35,10 @@ defmodule Kakte.Application do
       %{
         id: Kakte.Repo,
         start: {Kakte.Repo, :start_link, []},
-        type: :supervisor,
+        type: :supervisor
       },
-      KakteWeb.Endpoint,  # Start the web endpoint
+      # Start the web endpoint
+      KakteWeb.Endpoint
     ]
 
     opts = [strategy: :one_for_one, name: Kakte.Supervisor]
@@ -46,7 +47,7 @@ defmodule Kakte.Application do
 
   # Tell Phoenix to update the endpoint configuration whenever the application
   # is updated.
-  @spec config_change(term, term, term) :: :ok
+  @spec config_change(term(), term(), term()) :: :ok
   def config_change(changed, _new, removed) do
     Endpoint.config_change(changed, removed)
     :ok

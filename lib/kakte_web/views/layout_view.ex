@@ -29,7 +29,7 @@ defmodule KakteWeb.LayoutView do
   @doc """
   Sets the page title.
   """
-  @spec title(String.t | nil) :: String.t
+  @spec title(String.t() | nil) :: String.t()
   def title(nil), do: "Kakte"
   def title(title), do: "Kakte — #{title}"
 end

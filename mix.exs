@@ -6,35 +6,35 @@ defmodule Kakte.Mixfile do
       app: :kakte,
       version: "0.1.0-dev",
       elixir: "~> 1.5",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
       dialyzer: [
         plt_add_deps: :transitive,
         flags: [:unmatched_returns, :error_handling, :race_conditions],
-        ignore_warnings: ".dialyzer-ignore",
+        ignore_warnings: ".dialyzer-ignore"
       ],
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
-        "coveralls": :test,
+        coveralls: :test,
         "coveralls.detail": :test,
-        "coveralls.html": :test,
-      ],
+        "coveralls.html": :test
+      ]
     ]
   end
 
   def application do
     [
       mod: {Kakte.Application, []},
-      extra_applications: [:logger, :mnesia, :runtime_tools],
+      extra_applications: [:logger, :mnesia, :runtime_tools]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
@@ -61,17 +61,17 @@ defmodule Kakte.Mixfile do
       {:timex_ecto, "~> 3.1"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:not_qwerty123, "~> 2.2"},
+      {:not_qwerty123, "~> 2.2"}
     ]
   end
 
   defp aliases do
     [
-      "setup": ["ecto.setup", "session.setup", "expected.mnesia.setup"],
-      "reset": ["ecto.reset", "session.clear", "expected.mnesia.clear"],
+      setup: ["ecto.setup", "session.setup", "expected.mnesia.setup"],
+      reset: ["ecto.reset", "session.clear", "expected.mnesia.clear"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

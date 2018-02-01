@@ -33,13 +33,13 @@ defmodule KakteWeb.SessionController do
 
   Redirects if there is already a session.
   """
-  @spec login(Plug.Conn.t, map) :: Plug.Conn.t
+  @spec login(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def login(conn, params) do
     page = params["redirect_to"] || "/"
 
     if Auth.authenticated?(conn),
       do: redirect(conn, to: page),
-    else: render_login(conn, page)
+      else: render_login(conn, page)
   end
 
   @doc """
@@ -47,9 +47,11 @@ defmodule KakteWeb.SessionController do
 
   If the credentials are not valid, the login page is rendered again.
   """
-  @spec create(Plug.Conn.t, map) :: Plug.Conn.t
-  def create(conn, %{"username" => username,
-                     "password" => password} = params) do
+  @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def create(
+        conn,
+        %{"username" => username, "password" => password} = params
+      ) do
     page = params["redirect_to"] || "/"
 
     case Auth.authenticate(username, password) do
@@ -62,7 +64,7 @@ defmodule KakteWeb.SessionController do
 
       :error ->
         conn
-        |> put_flash(:error, gettext "Incorrect username or password.")
+        |> put_flash(:error, gettext("Incorrect username or password."))
         |> render_login(page)
     end
   end
@@ -70,17 +72,17 @@ defmodule KakteWeb.SessionController do
   @doc """
   Deletes the session.
   """
-  @spec delete(Plug.Conn.t, map) :: Plug.Conn.t
+  @spec delete(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def delete(conn, _params) do
     conn
     |> logout()
     |> redirect(to: "/")
   end
 
-  @spec render_login(Plug.Conn.t, String.t) :: Plug.Conn.t
+  @spec render_login(Plug.Conn.t(), String.t()) :: Plug.Conn.t()
   defp render_login(conn, redirect_to) do
     conn
-    |> assign(:title, gettext "Log in")
+    |> assign(:title, gettext("Log in"))
     |> assign(:redirect_to, redirect_to)
     |> render("login.html")
   end

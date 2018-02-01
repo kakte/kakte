@@ -16,20 +16,23 @@ defmodule KakteWeb.SessionControllerTest do
 
     test "the login form contains a hidden redirect_to field", %{conn: conn} do
       conn = get conn, session_path(conn, :login, redirect_to: "/test")
+
       assert html_response(conn, 200) =~
-        ~S(<input type="hidden" name="redirect_to" value="/test">)
+               ~S(<input type="hidden" name="redirect_to" value="/test">)
     end
 
-    test "POST /login logs the user in if the credentials are correct",
-         %{conn: conn} do
+    test "POST /login logs the user in if the credentials are correct", %{
+      conn: conn
+    } do
       user = user_fixture()
 
       # Ensure there is no previous login in the store
       Expected.delete_all_user_logins(user.username)
 
-      conn = post conn, session_path(conn, :create),
-                  username: user.username,
-                  password: @password
+      conn =
+        post conn, session_path(conn, :create),
+          username: user.username,
+          password: @password
 
       assert get_session(conn, :authenticated)
       assert conn.resp_cookies["_kakte_auth"]
@@ -40,19 +43,21 @@ defmodule KakteWeb.SessionControllerTest do
           correct", %{conn: conn} do
       user = user_fixture()
 
-      conn = post conn, session_path(conn, :create),
-                  redirect_to: "/test",
-                  username: user.username,
-                  password: @password
+      conn =
+        post conn, session_path(conn, :create),
+          redirect_to: "/test",
+          username: user.username,
+          password: @password
 
       assert redirected_to(conn) == "/test"
     end
 
     test "POST /login renders /login with an error message if the credentials
           are incorrect", %{conn: conn} do
-      conn = post conn, session_path(conn, :create),
-                  username: "test",
-                  password: "test"
+      conn =
+        post conn, session_path(conn, :create),
+          username: "test",
+          password: "test"
 
       refute get_session(conn, :authenticated)
       assert html_response(conn, 200) =~ "Incorrect username or password."
@@ -74,8 +79,9 @@ defmodule KakteWeb.SessionControllerTest do
       assert redirected_to(conn) == "/test"
     end
 
-    test "GET /logout logs the user out and redirects to the home page",
-         %{conn: conn} do
+    test "GET /logout logs the user out and redirects to the home page", %{
+      conn: conn
+    } do
       auth_cookie = conn.cookies["_kakte_auth"]
       [encoded_user, serial, _] = String.split(auth_cookie, ".")
       user = Base.decode64!(encoded_user)

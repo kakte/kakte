@@ -63,9 +63,11 @@ defmodule KakteWeb.ConnCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Kakte.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Kakte.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

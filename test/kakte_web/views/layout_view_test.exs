@@ -23,7 +23,7 @@ defmodule KakteWeb.LayoutViewTest do
 
     test "the title is set according to its assign", %{conn: conn} do
       assert render_layout("app.html", conn: conn, title: "Test") =~
-        "<title>#{title("Test")}</title>"
+               "<title>#{title("Test")}</title>"
     end
   end
 

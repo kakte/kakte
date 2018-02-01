@@ -1,22 +1,22 @@
 <div class="login-form">
-  <h1><%= gettext "Log in" %></h1>
+  <h1><%= gettext("Log in") %></h1>
 
   <%= form_tag session_path(@conn, :create) do %>
     <fieldset>
       <input type="hidden" name="redirect_to" value="<%= @redirect_to %>">
 
       <div class="form-group">
-        <label for="username"><%= gettext "Username" %></label><br>
+        <label for="username"><%= gettext("Username") %></label><br>
         <input type="text" name="username">
       </div>
 
       <div class="form-group">
-        <label for="password"><%= gettext "Password" %></label><br>
+        <label for="password"><%= gettext("Password") %></label><br>
         <input type="password" name="password">
       </div>
 
       <div class="form-group">
-        <input type="submit" value="<%= gettext "Log in" %>">
+        <input type="submit" value="<%= gettext("Log in") %>">
       </div>
     </fieldset>
   <% end %>

@@ -10,8 +10,14 @@ config :kakte, KakteWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  watchers: [
+    node: [
+      "node_modules/brunch/bin/brunch",
+      "watch",
+      "--stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # Watch static and templates for browser reloading.
 config :kakte, KakteWeb.Endpoint,
@@ -25,8 +31,7 @@ config :kakte, KakteWeb.Endpoint,
   ]
 
 # Clear the console before each test run
-config :mix_test_watch,
-  clear: true
+config :mix_test_watch, clear: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

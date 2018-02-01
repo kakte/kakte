@@ -14,7 +14,7 @@ msgstr ""
 msgid "Hello from kakte :-)"
 msgstr ""
 
-#: lib/kakte_web/controllers/session_controller.ex:83
+#: lib/kakte_web/controllers/session_controller.ex:85
 #: lib/kakte_web/templates/layout/app.html.eex:30
 #: lib/kakte_web/templates/session/login.html.eex:2
 #: lib/kakte_web/templates/session/login.html.eex:19
@@ -37,6 +37,6 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: lib/kakte_web/controllers/session_controller.ex:65
+#: lib/kakte_web/controllers/session_controller.ex:67
 msgid "Incorrect username or password."
 msgstr ""

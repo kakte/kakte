@@ -27,8 +27,8 @@ defmodule KakteWeb.PageController do
   @doc """
   Renders the home page.
   """
-  @spec index(Plug.Conn.t, map) :: Plug.Conn.t
+  @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, _params) do
-    render conn, "index.html", title: gettext "Home"
+    render(conn, "index.html", title: gettext("Home"))
   end
 end

@@ -40,7 +40,7 @@ defmodule KakteWeb.Locale do
 
   It is then put in `conn.assigns.locale` and in the Gettext configuration.
   """
-  @spec set_locale(Plug.Conn.t, keyword) :: Plug.Conn.t
+  @spec set_locale(Plug.Conn.t(), keyword()) :: Plug.Conn.t()
   def set_locale(conn, _opts \\ []) do
     conn
     |> fetch_locale
@@ -48,29 +48,30 @@ defmodule KakteWeb.Locale do
     |> put_locale
   end
 
-  @spec fetch_locale(Plug.Conn.t) :: Plug.Conn.t
+  @spec fetch_locale(Plug.Conn.t()) :: Plug.Conn.t()
   defp fetch_locale(conn) do
-    locale = case conn.query_params["lang"]
-               || conn.cookies["locale"]
-               || PlugBest.best_language(conn, @supported)
-               || Gettext.get_locale(@backend) do
-      {_, locale, _}  -> locale
-      locale          -> locale
-    end
+    locale =
+      case conn.query_params["lang"] || conn.cookies["locale"] ||
+             PlugBest.best_language(conn, @supported) ||
+             Gettext.get_locale(@backend) do
+        {_, locale, _} -> locale
+        locale -> locale
+      end
 
     assign(conn, :locale, locale)
   end
 
-  @spec change_locale(Plug.Conn.t) :: Plug.Conn.t
+  @spec change_locale(Plug.Conn.t()) :: Plug.Conn.t()
   defp change_locale(%{query_params: %{"lang" => locale}} = conn) do
     conn
     |> put_resp_cookie("locale", locale)
     |> redirect(to: conn.request_path)
     |> halt
   end
+
   defp change_locale(conn), do: conn
 
-  @spec put_locale(Plug.Conn.t) :: Plug.Conn.t
+  @spec put_locale(Plug.Conn.t()) :: Plug.Conn.t()
   defp put_locale(%{assigns: %{locale: locale}} = conn) do
     Gettext.put_locale(@backend, locale)
     conn

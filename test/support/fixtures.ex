@@ -18,7 +18,7 @@ defmodule Kakte.Fixtures do
         email: "john@kakte.io",
         password: @password,
         password_confirmation: @password,
-        fullname: "John Smith",
+        fullname: "John Smith"
       }
 
       @new_password "s0jH,Fst;HQm"
@@ -27,7 +27,7 @@ defmodule Kakte.Fixtures do
         email: "fred@kakte.io",
         password: @new_password,
         password_confirmation: @new_password,
-        fullname: "Fred Smith",
+        fullname: "Fred Smith"
       }
 
       @invalid_attrs %{
@@ -35,7 +35,7 @@ defmodule Kakte.Fixtures do
         email: nil,
         password: nil,
         password_confirmation: nil,
-        fullname: nil,
+        fullname: nil
       }
 
       @user %User{
@@ -44,15 +44,15 @@ defmodule Kakte.Fixtures do
         email: @valid_attrs.email,
         password_hash: Comeonin.Bcrypt.hashpwsalt(@password),
         fullname: @valid_attrs.fullname,
-        inserted_at: DateTime.utc_now,
-        updated_at: DateTime.utc_now,
+        inserted_at: DateTime.utc_now(),
+        updated_at: DateTime.utc_now()
       }
 
       def user_fixture(attrs \\ %{}) do
         {:ok, user} =
           attrs
           |> Enum.into(@valid_attrs)
-          |> Accounts.register
+          |> Accounts.register()
 
         user
       end
@@ -63,7 +63,8 @@ defmodule Kakte.Fixtures do
   Apply the `fixtures`.
   """
   defmacro __using__(fixtures) when is_list(fixtures) do
-    for fixture <- fixtures, is_atom(fixture),
-      do: apply(__MODULE__, fixture, [])
+    for fixture <- fixtures,
+        is_atom(fixture),
+        do: apply(__MODULE__, fixture, [])
   end
 end

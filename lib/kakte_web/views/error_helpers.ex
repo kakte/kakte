@@ -27,17 +27,17 @@ defmodule KakteWeb.ErrorHelpers do
   @doc """
   Generates tag for inlined form input errors.
   """
-  @spec error_tag(Phoenix.HTML.Form.t, atom) :: [Phoenix.HTML.safe]
+  @spec error_tag(Phoenix.HTML.Form.t(), atom()) :: [Phoenix.HTML.safe()]
   def error_tag(form, field) do
-    Enum.map Keyword.get_values(form.errors, field), fn (error) ->
-      content_tag :span, translate_error(error), class: "help-block"
-    end
+    Enum.map(Keyword.get_values(form.errors, field), fn error ->
+      content_tag(:span, translate_error(error), class: "help-block")
+    end)
   end
 
   @doc """
   Translates an error message using gettext.
   """
-  @spec translate_error({String.t, map}) :: String.t
+  @spec translate_error({String.t(), map()}) :: String.t()
   def translate_error({msg, opts}) do
     # Because error messages were defined within Ecto, we must call the Gettext
     # module passing our Gettext backend. We also use the "errors" domain as

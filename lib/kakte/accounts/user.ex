@@ -30,22 +30,22 @@ defmodule Kakte.Accounts.User do
   alias Ecto.Changeset
 
   @typedoc "An event"
-  @type t :: %__MODULE__{
-    id: pos_integer | nil,
-    username: String.t,
-    email: String.t,
-    password: nil,
-    password_hash: String.t,
-    fullname: String.t | nil,
-    inserted_at: Calendar.datetime | nil,
-    updated_at: Calendar.datetime | nil,
-  }
+  @type t() :: %__MODULE__{
+          id: pos_integer() | nil,
+          username: String.t(),
+          email: String.t(),
+          password: nil,
+          password_hash: String.t(),
+          fullname: String.t() | nil,
+          inserted_at: Calendar.datetime() | nil,
+          updated_at: Calendar.datetime() | nil
+        }
 
   @fields [
     :username,
     :email,
     :password,
-    :fullname,
+    :fullname
   ]
 
   schema "users" do
@@ -61,7 +61,7 @@ defmodule Kakte.Accounts.User do
   @doc """
   Changeset for user registration.
   """
-  @spec registration_changeset(%__MODULE__{}, map) :: Changeset.t
+  @spec registration_changeset(%__MODULE__{}, map()) :: Changeset.t()
   def registration_changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, @fields)
@@ -72,7 +72,7 @@ defmodule Kakte.Accounts.User do
   @doc """
   Changeset for user update.
   """
-  @spec update_changeset(t, map) :: Changeset.t
+  @spec update_changeset(t(), map()) :: Changeset.t()
   def update_changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, @fields)
@@ -80,7 +80,7 @@ defmodule Kakte.Accounts.User do
     |> validate_changes
   end
 
-  @spec validate_changes(Changeset.t) :: Changeset.t
+  @spec validate_changes(Changeset.t()) :: Changeset.t()
   defp validate_changes(%Changeset{} = changeset) do
     changeset
     |> validate_format(:email, ~r/@/)
@@ -91,20 +91,24 @@ defmodule Kakte.Accounts.User do
     |> unique_constraint(:email)
   end
 
-  @spec validate_password_strength(Changeset.t) :: Changeset.t
-  defp validate_password_strength(%Changeset{valid?: true, changes:
-    %{password: password}} = changeset) do
+  @spec validate_password_strength(Changeset.t()) :: Changeset.t()
+  defp validate_password_strength(
+         %Changeset{valid?: true, changes: %{password: password}} = changeset
+       ) do
     case NotQwerty123.PasswordStrength.strong_password?(password) do
-      {:ok, _}          -> changeset
+      {:ok, _} -> changeset
       {:error, message} -> add_error(changeset, :password, message)
     end
   end
+
   defp validate_password_strength(changeset), do: changeset
 
-  @spec hash_password(Changeset.t) :: Changeset.t
-  defp hash_password(%Changeset{valid?: true, changes:
-      %{password: password}} = changeset) do
+  @spec hash_password(Changeset.t()) :: Changeset.t()
+  defp hash_password(
+         %Changeset{valid?: true, changes: %{password: password}} = changeset
+       ) do
     change(changeset, Comeonin.Bcrypt.add_hash(password))
   end
+
   defp hash_password(changeset), do: changeset
 end

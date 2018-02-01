@@ -35,8 +35,9 @@ defmodule KakteWeb.ErrorView do
   @doc """
   Renders a 500 error for templates not found.
   """
-  @spec template_not_found(String.t | atom, keyword) :: Phoenix.HTML.safe
+  @spec template_not_found(String.t() | atom(), keyword()) ::
+          Phoenix.HTML.safe()
   def template_not_found(_template, assigns) do
-    render "500.html", assigns
+    render("500.html", assigns)
   end
 end

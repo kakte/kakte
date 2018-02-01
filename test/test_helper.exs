@@ -1,5 +1,5 @@
-ExUnit.configure formatters: [ExUnit.CLIFormatter, ExUnitNotifier]
-ExUnit.start
+ExUnit.configure(formatters: [ExUnit.CLIFormatter, ExUnitNotifier])
+ExUnit.start()
 
 # Setup test session and login stores
 :ets.new(:session, [:named_table, :public])

@@ -29,9 +29,11 @@ defmodule KakteWeb.ChannelCase do
 
   setup tags do
     :ok = Sandbox.checkout(Kakte.Repo)
+
     unless tags[:async] do
       Sandbox.mode(Kakte.Repo, {:shared, self()})
     end
+
     :ok
   end
 end

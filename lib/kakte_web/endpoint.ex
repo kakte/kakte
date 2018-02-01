@@ -28,7 +28,9 @@ defmodule KakteWeb.Endpoint do
 
   # Serves at "/" the static files from "priv/static" directory.
   plug Plug.Static,
-    at: "/", from: :kakte, gzip: true,
+    at: "/",
+    from: :kakte,
+    gzip: true,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the :code_reloader
@@ -63,8 +65,10 @@ defmodule KakteWeb.Endpoint do
   """
   def init(_key, config) do
     if config[:load_from_system_env] do
-      port = System.get_env("PORT") || raise "expected the PORT environment " <>
-        "variable to be set"
+      port =
+        System.get_env("PORT") ||
+          raise "expected the PORT environment variable to be set"
+
       {:ok, Keyword.put(config, :http, [:inet6, port: port])}
     else
       {:ok, config}
