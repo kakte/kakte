@@ -52,7 +52,7 @@ defmodule Kakte.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.3"},
       {:postgrex, ">= 0.0.0"},
-      {:gettext, "~> 0.13.1"},
+      {:gettext, "~> 0.14.0"},
       {:cowboy, "~> 1.0"},
       {:expected, "~> 0.1.1"},
       {:plug_session_mnesia, "~> 0.1.2"},
