@@ -44,6 +44,7 @@ defmodule Kakte.Mixfile do
       {:excoveralls, ">= 0.0.0", only: :test, runtime: false},
       {:mix_test_watch, ">= 0.0.0", only: :dev, runtime: false},
       {:ex_unit_notifier, ">= 0.0.0", only: :test, runtime: false},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
 
       # Project dependencies
       {:phoenix, "~> 1.3.0"},
@@ -51,7 +52,6 @@ defmodule Kakte.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:expected, "~> 0.1"},
