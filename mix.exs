@@ -50,7 +50,7 @@ defmodule Kakte.Mixfile do
       {:phoenix, "~> 1.3.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix_ecto, "~> 3.3"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.13.1"},
       {:cowboy, "~> 1.0"},
@@ -59,7 +59,7 @@ defmodule Kakte.Mixfile do
       {:plug_best, "~> 0.3.0"},
       {:timex, "~> 3.1"},
       {:timex_ecto, "~> 3.1"},
-      {:comeonin, "~> 4.0"},
+      {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:not_qwerty123, "~> 2.2"},
     ]
