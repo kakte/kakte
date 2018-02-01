@@ -67,6 +67,8 @@ defmodule Kakte.Mixfile do
 
   defp aliases do
     [
+      "setup": ["ecto.setup", "session.setup", "expected.mnesia.setup"],
+      "reset": ["ecto.reset", "session.clear", "expected.mnesia.clear"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       "test": ["ecto.create --quiet", "ecto.migrate", "test"],
