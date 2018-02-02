@@ -43,8 +43,8 @@ bare metal, but using git-flow simplifies the process.
 
 2. Install Erlang and Elixir plugins for asdf:
 
-        $ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-        $ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+        $ asdf plugin-add erlang
+        $ asdf plugin-add elixir
 
 3. Install Sass:
 
@@ -139,3 +139,8 @@ changes:
     $ git rebase develop
 
 Then, create a pull request.
+
+## Coding style
+
+Please format your code with `mix format` or your editor and follow
+[this style guide](https://github.com/christopheradams/elixir_style_guide).
