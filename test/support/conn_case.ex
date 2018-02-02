@@ -15,6 +15,8 @@ defmodule KakteWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias Phoenix.ConnTest
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -62,12 +64,14 @@ defmodule KakteWeb.ConnCase do
   end
 
   setup tags do
+    # credo:disable-for-next-line Credo.Check.Design.AliasUsage
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Kakte.Repo)
 
     unless tags[:async] do
+      # credo:disable-for-next-line Credo.Check.Design.AliasUsage
       Ecto.Adapters.SQL.Sandbox.mode(Kakte.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: ConnTest.build_conn()}
   end
 end

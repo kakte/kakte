@@ -27,7 +27,9 @@ defmodule Kakte.Accounts.User do
 
   import Ecto.Changeset
 
+  alias Comeonin.Bcrypt
   alias Ecto.Changeset
+  alias NotQwerty123.PasswordStrength
 
   @typedoc "An event"
   @type t() :: %__MODULE__{
@@ -95,7 +97,7 @@ defmodule Kakte.Accounts.User do
   defp validate_password_strength(
          %Changeset{valid?: true, changes: %{password: password}} = changeset
        ) do
-    case NotQwerty123.PasswordStrength.strong_password?(password) do
+    case PasswordStrength.strong_password?(password) do
       {:ok, _} -> changeset
       {:error, message} -> add_error(changeset, :password, message)
     end
@@ -107,7 +109,7 @@ defmodule Kakte.Accounts.User do
   defp hash_password(
          %Changeset{valid?: true, changes: %{password: password}} = changeset
        ) do
-    change(changeset, Comeonin.Bcrypt.add_hash(password))
+    change(changeset, Bcrypt.add_hash(password))
   end
 
   defp hash_password(changeset), do: changeset

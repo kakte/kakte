@@ -26,6 +26,7 @@ defmodule KakteWeb.Auth do
 
   alias Kakte.Accounts.User
   alias Kakte.Repo
+  alias Comeonin.Bcrypt
 
   @doc """
   Authenticates a user.
@@ -33,7 +34,7 @@ defmodule KakteWeb.Auth do
   @spec authenticate(String.t(), String.t()) :: {:ok, User.t()} | :error
   def authenticate(username, password) do
     with user when not is_nil(user) <- Repo.get_by(User, username: username),
-         {:ok, user} <- Comeonin.Bcrypt.check_pass(user, password) do
+         {:ok, user} <- Bcrypt.check_pass(user, password) do
       {:ok, user}
     else
       _ -> :error

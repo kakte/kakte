@@ -1,6 +1,7 @@
 defmodule Kakte.AccountsTest do
   use Kakte.DataCase
 
+  alias Comeonin.Bcrypt
   alias Ecto.Changeset
   alias Kakte.Accounts
 
@@ -29,7 +30,7 @@ defmodule Kakte.AccountsTest do
       assert user.username == @valid_attrs.username
       assert user.email == @valid_attrs.email
       assert user.password == nil
-      assert Comeonin.Bcrypt.checkpw(@password, user.password_hash)
+      assert Bcrypt.checkpw(@password, user.password_hash)
       assert user.fullname == @valid_attrs.fullname
     end
 
@@ -134,7 +135,7 @@ defmodule Kakte.AccountsTest do
       assert user.username == @update_attrs.username
       assert user.email == @update_attrs.email
       assert user.password == nil
-      assert Comeonin.Bcrypt.checkpw(@new_password, user.password_hash)
+      assert Bcrypt.checkpw(@new_password, user.password_hash)
       assert user.fullname == @update_attrs.fullname
     end
 
