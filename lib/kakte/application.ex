@@ -28,21 +28,17 @@ defmodule Kakte.Application do
 
   @impl Application
   def start(_type, _args) do
-    children = [
-      # Start the Ecto repository (for database)
-      # As Timex is not yet compatible with the last Ecto version, we must pass
-      # a child spec for this to work.
-      %{
-        id: Kakte.Repo,
-        start: {Kakte.Repo, :start_link, []},
-        type: :supervisor
-      },
-      # Start the web endpoint
-      KakteWeb.Endpoint
-    ]
+    Supervisor.start_link(
+      [
+        # Start the Ecto repository (for database).
+        Kakte.Repo,
 
-    opts = [strategy: :one_for_one, name: Kakte.Supervisor]
-    Supervisor.start_link(children, opts)
+        # Start the web endpoint.
+        KakteWeb.Endpoint
+      ],
+      strategy: :one_for_one,
+      name: Kakte.Supervisor
+    )
   end
 
   # Tell Phoenix to update the endpoint configuration whenever the application
