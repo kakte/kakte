@@ -95,7 +95,7 @@ defmodule Kakte.AccountsTest do
       assert %{
                password: [
                  "The password you have chosen is weak because it is easy to" <>
-                   "guess. Please choose another one."
+                   " guess. Please choose another one."
                ]
              } = errors_on(changeset)
     end
