@@ -45,6 +45,7 @@ defmodule Kakte.Mixfile do
       {:mix_test_watch, ">= 0.0.0", only: :dev, runtime: false},
       {:ex_unit_notifier, ">= 0.0.0", only: :test, runtime: false},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:stream_data, "~> 0.4.0", only: :test},
 
       # Project dependencies
       {:phoenix, "~> 1.3.0"},
