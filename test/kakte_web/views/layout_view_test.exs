@@ -1,5 +1,6 @@
 defmodule KakteWeb.LayoutViewTest do
   use KakteWeb.ConnCase, async: true
+  use ExUnitProperties
 
   import Phoenix.View, only: [render_to_string: 3]
   import KakteWeb.LayoutView
@@ -13,17 +14,21 @@ defmodule KakteWeb.LayoutViewTest do
       assert title(nil) == "Kakte"
     end
 
-    test "to “Kakte — <title>” if a title is provided" do
-      assert title("Test") == "Kakte — Test"
+    property "to “Kakte — <title>” if a title is provided" do
+      check all title <- string(:printable) do
+        assert title(title) == "Kakte — #{title}"
+      end
     end
   end
 
   describe "in the app layout" do
     setup [:guest]
 
-    test "the title is set according to its assign", %{conn: conn} do
-      assert render_layout("app.html", conn: conn, title: "Test") =~
-               "<title>#{title("Test")}</title>"
+    property "the title is set according to its assign", %{conn: conn} do
+      check all title <- string(:printable) do
+        assert render_layout("app.html", conn: conn, title: title) =~
+                 "<title>#{title(title)}</title>"
+      end
     end
   end
 
