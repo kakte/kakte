@@ -7,12 +7,31 @@ defmodule Kakte.AccountsTest do
 
   describe "[users]" do
     use Kakte.Fixtures, [:user]
+    use Kakte.Generators, [:user]
 
     alias Kakte.Accounts.User
 
-    test "list_users/0 returns all users" do
-      user = user_fixture()
-      assert Accounts.list_users() == [user]
+    # TODO: Légender par fonction pour plus de lisibilité.
+    # TODO: Créer les générateurs + helpers qui vont bien.
+    # TODO: Voir si manière intelligente et efficace de faire des tests.
+
+    property "list_users/0 returns all users" do
+      check all attrs_list <- uniq_list_of(user_attrs(), length: 5),
+                max_runs: 10 do
+        users =
+          Enum.map(attrs_list, fn attrs ->
+            {:ok, user} = Accounts.register(attrs)
+            user
+          end)
+
+        users_list = Accounts.list_users()
+
+        assert length(users) == 5
+        Enum.each(users, fn user -> assert user in users_list end)
+
+        # TODO: Voir si mieux
+        Kakte.Repo.delete_all(User)
+      end
     end
 
     test "get_user!/1 returns the user with given id" do
@@ -25,7 +44,7 @@ defmodule Kakte.AccountsTest do
       assert Accounts.get_user!(user.username) == user
     end
 
-    test "register_user/1 with valid data registers a user" do
+    test "register/1 with valid data registers a user" do
       assert {:ok, %User{} = user} = Accounts.register(@valid_attrs)
       assert user.username == @valid_attrs.username
       assert user.email == @valid_attrs.email
@@ -34,7 +53,7 @@ defmodule Kakte.AccountsTest do
       assert user.fullname == @valid_attrs.fullname
     end
 
-    test "register_user/1 with invalid data returns an error changeset" do
+    test "register/1 with invalid data returns an error changeset" do
       assert {:error, %Changeset{}} = Accounts.register(@invalid_attrs)
     end
 

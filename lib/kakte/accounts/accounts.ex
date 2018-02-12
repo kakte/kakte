@@ -62,6 +62,8 @@ defmodule Kakte.Accounts do
     user
     |> User.update_changeset(attrs)
     |> Repo.update()
+
+    # TODO: Mettre à jour les sessions.
   end
 
   @doc """
@@ -69,6 +71,7 @@ defmodule Kakte.Accounts do
   """
   @spec delete_user(User.t()) :: {:ok, User.t()} | {:error, Changeset.t()}
   def delete_user(%User{} = user) do
+    Expected.delete_all_user_logins(user.username)
     Repo.delete(user)
   end
 
